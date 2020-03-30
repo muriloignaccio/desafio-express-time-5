@@ -32,10 +32,28 @@ const homeController = {
   },
   newsletter: (req, res) => {
     let {email} = req.query;
+
+    const fileNewsletter = path.join('db', 'newsletter.json');
     
-    // POST - req.body
-    // GET - req.query
-    // GET /:email - req.params
+    let listaNewsletter = {};
+    if(fs.existsSync(fileNewsletter)){
+      // trazendo conteudo do arquivo em formato JSON
+      listaNewsletter = fs.readFileSync(fileNewsletter, { encoding: 'utf-8'});
+      // transformando JSON em obj
+      listaNewsletter = JSON.parse(listaNewsletter);
+      // pegando array de inscritos e adicionando um novo email
+      listaNewsletter.inscritos.push(email);
+    } else {
+      listaNewsletter = {
+        inscritos: [email]
+      };
+    }
+    // transforma obj em JSON
+    listaNewsletter = JSON.stringify(listaNewsletter);
+    // guardando lista de inscritos com o novo email
+    fs.writeFileSync(fileNewsletter, listaNewsletter);
+    
+    
 
     res.render('newsletter', {email, title: 'Newsletter'});
   }

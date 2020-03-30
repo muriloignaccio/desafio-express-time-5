@@ -23,10 +23,28 @@ const homeController = {
     let {nome, email, mensagem} = req.body;
 
     let infoContato = { nome, email, mensagem };
-    let infoContatoJSON = JSON.stringify(infoContato);
-    let datetime = new Date().getTime();
-    const db = path.join('db', `contato_${datetime}_${nome}.json`);
-    fs.writeFileSync(db, infoContatoJSON);
+
+    const fileContato = path.join('db', 'contato.json');
+    
+    let listaContato = {};
+    if(fs.existsSync(fileContato)){
+      // trazendo conteudo do arquivo em formato JSON
+      listaContato = fs.readFileSync(fileContato, { encoding: 'utf-8'});
+      // transformando JSON em obj
+      listaContato = JSON.parse(listaContato);
+      // pegando array de inscritos e adicionando um novo email
+      listaContato.contatos.push(infoContato);
+    } else {
+      listaContato = {
+        contatos: [infoContato]
+      };
+    }
+    // transforma obj em JSON
+    listaContato = JSON.stringify(listaContato);
+    // guardando lista de inscritos com o novo email
+    fs.writeFileSync(fileContato, listaContato);
+
+    // -----
 
     res.render('contato', {nome, email, mensagem, title: 'Contato'});
   },

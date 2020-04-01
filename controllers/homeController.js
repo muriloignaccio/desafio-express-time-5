@@ -60,10 +60,10 @@ const homeController = {
       // transformando JSON em obj
       listaNewsletter = JSON.parse(listaNewsletter);
       // pegando array de inscritos e adicionando um novo email
-      listaNewsletter.inscritos.push(email);
+      listaNewsletter.inscritos.push({email: email, date: new Date()});
     } else {
       listaNewsletter = {
-        inscritos: [email]
+        inscritos: [{email: email, date: new Date()}]
       };
     }
     // transforma obj em JSON

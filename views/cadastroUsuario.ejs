@@ -1,0 +1,33 @@
+<%- include('./partials/header') %>
+
+<section id="newsletter">
+    <div class="container w-25 py-5 my-5">
+      <div>
+        <div class="col">
+          <h2 class="text-center">Cadastro</h2>
+        </div>
+        <div class="col">
+          <form action="/cadastro" class="d-flex flex-column align-items-center" method="POST">
+            <div class="form-group mb-3 w-100">
+              <input type="text" name="nome" class="form-control" placeholder="Nome">
+            </div>
+            <div class="form-group mb-3 w-100">
+                <input type="email" name="email" class="form-control" placeholder="Email">
+              </div>
+              <div class="form-group mb-3 w-100">
+                <input type="password" name="senha" class="form-control" placeholder="Senha">
+              </div>
+              <div  class="input-group-append align-self-end">
+                <button class="btn btn-primary" type="submit">enviar</button>
+              </div>
+           
+                       
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+<%- include('./partials/footer') %>

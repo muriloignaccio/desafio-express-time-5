@@ -28,6 +28,26 @@ const usuarioController = {
     
     cadastroRender:(req, res) => {
         res.render('cadastroUsuario', {title: "Cadastro"} )
+    },
+
+    loginRender:(req, res) =>{
+        res.render('login', {title: "Login"})
+    },
+
+    login:(req, res) =>{
+        let {email, senha} = req.body;
+        const pathUsuario = path.join('db', 'usuarios.json');
+        let usuarios = JSON.parse(fs.readFileSync(pathUsuario, {enconding: 'utf-8'}));
+        usuarios= usuarios.find(usuario => email == usuario.email);
+        if( usuarios == undefined||usuarios.email != email){
+            return res.send("Email incorreto")
+        }
+        if (bcrypt.compareSync(senha, usuarios.hash)){
+            req.session.usuario = usuarios;
+            return res.redirect("/admin")
+        }
+        return res.send("senha incorreta");
+        
     }
 
 }

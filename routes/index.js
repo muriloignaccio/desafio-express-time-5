@@ -17,6 +17,8 @@ router.get("/admin", adminController.admin);
 router.get("/cadastro", usuarioController.cadastroRender);
 router.post("/cadastro", usuarioController.cadastro);
 
+router.get("/login", usuarioController.loginRender);
+router.post("/login", usuarioController.login);
 
 
 

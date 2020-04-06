@@ -4,7 +4,6 @@ const path = require("path");
 
 const adminController = {
   admin: (req, res) => {
-    if (req.session.usuario) {
       const fileNewsletter = path.join('db', 'newsletter.json');
 
       const inscritos = JSON.parse(fs.readFileSync(fileNewsletter, {
@@ -15,8 +14,6 @@ const adminController = {
         listaInscritos: inscritos.inscritos,
         title: "Admin"
       });
-    }
-    return res.redirect("/login");
   }
 };
 
